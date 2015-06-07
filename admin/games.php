@@ -39,6 +39,9 @@ for($i = 1; $i <= $num_team_results; $i ++) {
             <a href="#">Jogos</a>
           </li>
           <li role="presentation">
+            <a href="guesses.php">Palpites</a>
+          </li>
+          <li role="presentation">
             <a href="do_logout.php">Sair</a>
           </li>
         </ul>
@@ -54,6 +57,11 @@ for($i = 1; $i <= $num_team_results; $i ++) {
     <?php
 		if ($_GET ["success"] == 1) {
 			echo '<div class="alert alert-success" role="alert">Jogo adicionado com sucesso!</div>';
+		}
+	?>
+	<?php
+		if ($_GET ["edited"] == 1) {
+			echo '<div class="alert alert-success" role="alert">Placar alterado com sucesso!</div>';
 		}
 	?>
    <div class="row">
@@ -143,7 +151,7 @@ for($i = 1; $i <= $num_team_results; $i ++) {
             </p>
             <input type="hidden" id="game" name="game"/>
             <label for="name"> Placar 1 </label>
-            <input type="text" class="form-control" name="score_1" id="score_1">
+            <input type="text" class="form-control" name="score_1" id="score_1" autofocus>
             <label for="name"> Placar 2 </label>
             <input type="text" class="form-control" name="score_2" id="score_2">
             <span data-alertid="create"></span>
@@ -206,14 +214,7 @@ $("#edit-game-modal").on("hidden", function() {
 });
 
 $("#edit-game-button").on("click", function() {
-    var name = $("#name").val();
-    if (name == "") {
-         $(document).trigger("set-alert-id-edit", [{
-                message: 'Digite os placares!',
-         }]);
-    } else {
-        $("#edit-game-form").submit();
-    }
+    $("#edit-game-form").submit();
 });
 function showEditGameModal(id, team_1, team_2, score_1, score_2) {
    $("#game").val(id);

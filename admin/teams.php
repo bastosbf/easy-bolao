@@ -1,7 +1,7 @@
 <?php
 include '../config/connect.php';
 
-$sql = "SELECT * FROM team";
+$sql = "SELECT * FROM team ORDER BY name";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
 ?>
@@ -29,6 +29,9 @@ $num_results = mysql_num_rows ( $result );
           </li>
           <li role="presentation">
             <a href="games.php">Jogos</a>
+          </li>
+          <li role="presentation">
+            <a href="guesses.php">Palpites</a>
           </li>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>

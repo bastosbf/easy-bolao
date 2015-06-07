@@ -1,7 +1,7 @@
 <?php
 include '../config/connect.php';
 
-$sql = "SELECT * FROM player";
+$sql = "SELECT * FROM player ORDER BY name";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
 ?>
@@ -31,6 +31,9 @@ $num_results = mysql_num_rows ( $result );
             <a href="games.php">Jogos</a>
           </li>
           <li role="presentation">
+            <a href="guesses.php">Palpites</a>
+          </li>
+          <li role="presentation">
             <a href="do_logout.php">Sair</a>
           </li>
         </ul>
@@ -44,9 +47,9 @@ $num_results = mysql_num_rows ( $result );
       <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddPlayerModal()">Adicionar Jogador</button>
     </p>
     <?php
-		if ($_GET ["success"] == 1) {
-			echo '<div class="alert alert-success" role="alert">Joogador adicionado com sucesso!</div>';
-		}
+	if ($_GET ["success"] == 1) {
+		echo '<div class="alert alert-success" role="alert">Jogador adicionado com sucesso!</div>';
+	}
 	?>
     <div class="row">
       <div class="col-md-12">

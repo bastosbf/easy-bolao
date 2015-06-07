@@ -35,6 +35,11 @@ if($_SESSION["logged"] == null) {
         </ul>
       </nav>
       <h3 class="text-muted">Administração</h3>
+      <div class="jumbotron" align="center">
+        <h1>Easy Bolão!</h1>
+        <p class="lead">Easy Bolão foi criado para gerênciar palpites de jogos de futebol entre diferentes jogadores. As regras....</p>
+        <p><a class="btn btn-lg btn-success" href="https://github.com/bastosbf/easy-bolao" role="button" target="_blank">Baixe Agora!</a></p>
+      </div>
     </div>
   </div>
 </body>
