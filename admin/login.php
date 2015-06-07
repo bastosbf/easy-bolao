@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	padding-top: 40px;
@@ -54,12 +54,17 @@ body {
 </head>
 <body>
   <div class="container">
-    <form class="form-signin" action="login.php">
+     <?php
+		if ($_GET ["error"] == 1) {
+			echo '<div class="alert alert-danger" role="alert">Usuário ou senha incorretos!</div>';
+		}
+	?>
+    <form class="form-signin" action="do_login.php" method="post">
       <h2 class="form-signin-heading">Autenticação</h2>
-      <label for="usuario" class="sr-only">Usuário</label>
-      <input type="text" id="usuario" class="form-control" placeholder="Usuário" required autofocus>
-      <label for="senha" class="sr-only">Senha</label>
-      <input type="password" id="senha" class="form-control" placeholder="Senha" required>
+      <label for="username" class="sr-only">Usuário</label>
+      <input type="text" id="username" name="username" class="form-control" placeholder="Usuário" required autofocus>
+      <label for="password" class="sr-only">Senha</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Senha" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
     </form>
   </div>

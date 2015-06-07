@@ -4,9 +4,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 03/06/2015 às 17:31:26
--- Versão do Servidor: 5.1.69
--- Versão do PHP: 5.2.17
+-- Tempo de Geraï¿½ï¿½o: 03/06/2015 ï¿½s 17:31:26
+-- Versï¿½o do Servidor: 5.1.69
+-- Versï¿½o do PHP: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,63 +28,63 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
-  `usuario` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `senha` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`usuario`)
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `jogador`
+-- Estrutura da tabela `player`
 --
 
-CREATE TABLE IF NOT EXISTS `jogador` (
+CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `jogo`
+-- Estrutura da tabela `game`
 --
 
-CREATE TABLE IF NOT EXISTS `jogo` (
+CREATE TABLE IF NOT EXISTS `game` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `time_1` int(11) NOT NULL,
-  `time_2` int(11) NOT NULL,
-  `palpite_1` int(11) NOT NULL,
-  `palpite_2` int(11) NOT NULL,
-  `data` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `team_1` int(11) NOT NULL,
+  `team_2` int(11) NOT NULL,
+  `score_1` int(11) NOT NULL,
+  `score_2` int(11) NOT NULL,
+  `date` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `palpite`
+-- Estrutura da tabela `guess`
 --
 
-CREATE TABLE IF NOT EXISTS `palpite` (
+CREATE TABLE IF NOT EXISTS `guess` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_jogador` int(11) NOT NULL,
-  `id_jogo` int(11) NOT NULL,
-  `placar_1` int(11) NOT NULL,
-  `placar_2` int(11) NOT NULL,
+  `id_player` int(11) NOT NULL,
+  `id_game` int(11) NOT NULL,
+  `guess_1` int(11) NOT NULL,
+  `guess_2` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `time`
+-- Estrutura da tabela `team`
 --
 
-CREATE TABLE IF NOT EXISTS `time` (
+CREATE TABLE IF NOT EXISTS `team` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

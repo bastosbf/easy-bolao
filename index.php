@@ -1,9 +1,13 @@
+<?php
+include 'config/connect.php';
+$sql = "SELECT * FROM jogador INNER JOIN palpite ON jogador.id = palpite.id_jogador INNER JOIN jogo ON palpite.id_jogo = jogo.id WHERE jogo.placar <> null";
+?>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body role="document">
   <div class="container theme-showcase" role="main">
@@ -106,10 +110,3 @@
   </div>
 </body>
 </html>
-<?php
-$sql = "SELECT * FROM jogador INNER JOIN palpite ON jogador.id = palpite.id_jogador INNER JOIN jogo ON palpite.id_jogo = jogo.id WHERE jogo.placar <> null";
-
-
-
-
-?>
