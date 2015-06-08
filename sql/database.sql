@@ -1,14 +1,13 @@
-
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.1.4
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tempo de Gera��o: 03/06/2015 �s 17:31:26
--- Vers�o do Servidor: 5.1.69
--- Vers�o do PHP: 5.2.17
+-- Host: 127.0.0.1
+-- Generation Time: 08-Jun-2015 às 00:07
+-- Versão do servidor: 5.6.15-log
+-- PHP Version: 5.5.8
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -18,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Banco de Dados: `bolao`
+-- Database: `bolao`
 --
 
 -- --------------------------------------------------------
@@ -36,18 +35,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `player`
---
-
-CREATE TABLE IF NOT EXISTS `player` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `game`
 --
 
@@ -55,11 +42,12 @@ CREATE TABLE IF NOT EXISTS `game` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `team_1` int(11) NOT NULL,
   `team_2` int(11) NOT NULL,
-  `score_1` int(11) NOT NULL,
-  `score_2` int(11) NOT NULL,
+  `score_1` int(11) NOT NULL DEFAULT '-1',
+  `score_2` int(11) NOT NULL DEFAULT '-1',
   `date` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -73,8 +61,22 @@ CREATE TABLE IF NOT EXISTS `guess` (
   `id_game` int(11) NOT NULL,
   `guess_1` int(11) NOT NULL,
   `guess_2` int(11) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `player`
+--
+
+CREATE TABLE IF NOT EXISTS `player` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -85,8 +87,9 @@ CREATE TABLE IF NOT EXISTS `guess` (
 CREATE TABLE IF NOT EXISTS `team` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
