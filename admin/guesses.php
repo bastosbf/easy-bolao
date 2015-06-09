@@ -52,8 +52,8 @@ $num_results = mysql_num_rows ( $result );
 	}
 	?>
     <form action="list_guesses.php" method="post">
-	    <div class="input-group">
-	      <select class="form-control" id="player" name="player">
+      <div class="input-group">
+        <select class="form-control" id="player" name="player">
 		    <?php
 			for($i = 1; $i <= $num_results; $i ++) {
 				$row = mysql_fetch_array ( $result );
@@ -63,11 +63,11 @@ $num_results = mysql_num_rows ( $result );
 			}
 			?>
 	  	  </select>
-	      <span class="input-group-btn">
-	        <input type="submit" class="btn btn-default" value="Adicionar Palpites"/>
-	      </span>
-	    </div>
-    </form>    
+        <span class="input-group-btn">
+          <input type="submit" class="btn btn-default" value="Adicionar Palpites" />
+        </span>
+      </div>
+    </form>
   </div>
 </body>
 </html>

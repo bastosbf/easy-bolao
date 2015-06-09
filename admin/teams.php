@@ -47,9 +47,9 @@ $num_results = mysql_num_rows ( $result );
       <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddTeamModal()">Adicionar Time</button>
     </p>
     <?php
-		if ($_GET ["success"] == 1) {
-			echo '<div class="alert alert-success" role="alert">Time adicionado com sucesso!</div>';
-		}
+	if ($_GET ["added"] == 1) {
+		echo '<div class="alert alert-success" role="alert">Time adicionado com sucesso!</div>';
+	}
 	?>
     <div class="row">
       <div class="col-md-12">
@@ -62,7 +62,7 @@ $num_results = mysql_num_rows ( $result );
               <th></th>
             </tr>
           </thead>
-           <tbody>
+          <tbody>
             <?php
 			for($i = 1; $i <= $num_results; $i ++) {
 				$row = mysql_fetch_array ( $result );
@@ -71,7 +71,7 @@ $num_results = mysql_num_rows ( $result );
               <td><?=$i?></td>
               <td><?=$row["name"]?></td>
               <td align="center">
-              	<span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</span>
               </td>
               <td align="center">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true">Excluir</span>

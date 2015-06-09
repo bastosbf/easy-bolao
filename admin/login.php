@@ -3,7 +3,8 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	padding-top: 40px;
@@ -54,10 +55,10 @@ body {
 </head>
 <body>
   <div class="container">
-     <?php
-		if ($_GET ["error"] == 1) {
-			echo '<div class="alert alert-danger" role="alert">Usuário ou senha incorretos!</div>';
-		}
+    <?php
+	if ($_GET ["error"] == 1) {
+		echo '<div class="alert alert-danger" role="alert">Usuário ou senha incorretos!</div>';
+	}
 	?>
     <form class="form-signin" action="do_login.php" method="post">
       <h2 class="form-signin-heading">Autenticação</h2>

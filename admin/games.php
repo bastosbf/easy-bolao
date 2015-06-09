@@ -8,10 +8,10 @@ $num_results = mysql_num_rows ( $result );
 $sql = "SELECT * FROM team";
 $team_result = mysql_query ( $sql );
 $num_team_results = mysql_num_rows ( $team_result );
-$teams = array();
+$teams = array ();
 for($i = 1; $i <= $num_team_results; $i ++) {
 	$row = mysql_fetch_array ( $team_result );
-	$teams[$row["id"]] = $row["name"];
+	$teams [$row ["id"]] = $row ["name"];
 }
 ?>
 <html lang="en">
@@ -19,7 +19,8 @@ for($i = 1; $i <= $num_team_results; $i ++) {
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body role="document">
   <div class="container theme-showcase" role="main">
@@ -55,14 +56,14 @@ for($i = 1; $i <= $num_team_results; $i ++) {
       <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddGameModal()">Adicionar Jogo</button>
     </p>
     <?php
-		if ($_GET ["success"] == 1) {
-			echo '<div class="alert alert-success" role="alert">Jogo adicionado com sucesso!</div>';
-		}
+	if ($_GET ["added"] == 1) {
+		echo '<div class="alert alert-success" role="alert">Jogo adicionado com sucesso!</div>';
+	}
 	?>
 	<?php
-		if ($_GET ["edited"] == 1) {
-			echo '<div class="alert alert-success" role="alert">Placar alterado com sucesso!</div>';
-		}
+	if ($_GET ["edited"] == 1) {
+		echo '<div class="alert alert-success" role="alert">Placar alterado com sucesso!</div>';
+	}
 	?>
    <div class="row">
       <div class="col-md-12">
@@ -92,30 +93,31 @@ for($i = 1; $i <= $num_team_results; $i ++) {
               <td><?=$teams[$row["team_2"]]?></td>
               <td><?=$row["date"]?></td>
               <td align="center">
-              	<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="javascript:showEditGameModal(<?=$row["id"]?>, '<?=$teams[$row["team_1"]]?>', '<?=$teams[$row["team_2"]]?>', <?=$row["score_1"]?>, <?=$row["score_2"]?> );">Editar</span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="javascript:showEditGameModal(<?=$row["id"]?>, '<?=$teams[$row["team_1"]]?>', '<?=$teams[$row["team_2"]]?>', <?=$row["score_1"]?>, <?=$row["score_2"]?> );">Editar</span>
               </td>
               <td align="center">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true">Excluir</span>
               </td>
             </tr>
             <?php
-			}
-			?>
+												}
+												?>
           </tbody>
         </table>
       </div>
+    </div>
   </div>
   <div id="add-game-modal" class="modal fade">
-  	<?php 
-  		$sql = "SELECT * FROM team ORDER BY name";
-  		$result = mysql_query ( $sql );
-  		$num_results = mysql_num_rows ( $result );
-  		$options = "";
-  		for($i = 1; $i <= $num_results; $i++) {
-  			$row = mysql_fetch_array ( $result );
-  			$options .= '<option value="'.$row["id"].'">'.$row["name"].'</option>';
-  		}  					  
-  	?>
+  	<?php
+	$sql = "SELECT * FROM team ORDER BY name";
+	$result = mysql_query ( $sql );
+	$num_results = mysql_num_rows ( $result );
+	$options = "";
+	for($i = 1; $i <= $num_results; $i ++) {
+		$row = mysql_fetch_array ( $result );
+		$options .= '<option value="' . $row ["id"] . '">' . $row ["name"] . '</option>';
+	}
+	?>
     <div class="modal-dialog">
       <div class="modal-content">
         <form id="add-game-form" action="add_game.php" method="POST">
@@ -147,9 +149,9 @@ for($i = 1; $i <= $num_team_results; $i ++) {
           <div class="modal-body">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <p align="center">
-            	<label id="teams"></label>
+              <label id="teams"></label>
             </p>
-            <input type="hidden" id="game" name="game"/>
+            <input type="hidden" id="game" name="game" />
             <label for="name"> Placar 1 </label>
             <input type="text" class="form-control" name="score_1" id="score_1" autofocus>
             <label for="name"> Placar 2 </label>

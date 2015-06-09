@@ -9,19 +9,19 @@ $num_results = mysql_num_rows ( $result );
 $sql = "SELECT * FROM team";
 $team_result = mysql_query ( $sql );
 $num_team_results = mysql_num_rows ( $team_result );
-$teams = array();
+$teams = array ();
 for($i = 1; $i <= $num_team_results; $i ++) {
 	$row = mysql_fetch_array ( $team_result );
-	$teams[$row["id"]] = $row["name"];
+	$teams [$row ["id"]] = $row ["name"];
 }
 
 $sql = "SELECT * FROM player";
 $player_result = mysql_query ( $sql );
 $num_player_results = mysql_num_rows ( $player_result );
-$players = array();
+$players = array ();
 for($i = 1; $i <= $num_player_results; $i ++) {
 	$row = mysql_fetch_array ( $player_result );
-	$players[$row["id"]] = $row["name"];
+	$players [$row ["id"]] = $row ["name"];
 }
 
 ?>
@@ -82,23 +82,27 @@ for($i = 1; $i <= $num_player_results; $i ++) {
             <?php
 			for($i = 1; $i <= $num_results; $i ++) {
 				$row = mysql_fetch_array ( $result );
-			?>			
+			?>		
             <tr>
                 <td><?=$i?></td>
                 <td><?=$teams[$row["team_1"]]?></td>
-                <td><input type="text" id="guess_1_<?=$row[6]?>" name="guess_1_<?=$row[6]?>" value="<?php if($row["guess_1"] != null) { echo $row["guess_1"]; }?>" size="2"/></td>
-                <td><input type="text" id="guess_2_<?=$row[6]?>" name="guess_2_<?=$row[6]?>" value="<?php if($row["guess_2"] != null) { echo $row["guess_2"]; }?>" size="2"/></td>
+                <td>
+                  <input type="text" id="guess_1_<?=$row[6]?>" name="guess_1_<?=$row[6]?>" value="<?php if($row["guess_1"] != null) { echo $row["guess_1"]; }?>" size="2" />
+                </td>
+                <td>
+                  <input type="text" id="guess_2_<?=$row[6]?>" name="guess_2_<?=$row[6]?>" value="<?php if($row["guess_2"] != null) { echo $row["guess_2"]; }?>" size="2" />
+                </td>
                 <td><?=$teams[$row["team_2"]]?></td>
                 <td><?=$row["date"]?></td>
-            </tr>
+              </tr>
             <?php
 			}
 			?>
           </tbody>
           </table>
           <p align="right">
-      		<input type="submit" class="btn btn-lg btn-primary" value="Salvar Palpites" />
-    	  </p>
+            <input type="submit" class="btn btn-lg btn-primary" value="Salvar Palpites" />
+          </p>
         </div>
       </div>
     </form>
