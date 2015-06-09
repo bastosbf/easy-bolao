@@ -1,5 +1,9 @@
 <?php
 include '../config/connect.php';
+session_start ();
+if ($_SESSION ["logged"] == null) {
+	Header ( "Location:login.php" );
+}
 
 $sql = "SELECT * FROM player ORDER BY name";
 $result = mysql_query ( $sql );
@@ -71,10 +75,10 @@ $num_results = mysql_num_rows ( $result );
               <td><?=$i?></td>
               <td><?=$row["name"]?></td>
               <td align="center">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               </td>
               <td align="center">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true">Excluir</span>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
               </td>
             </tr>
             <?php

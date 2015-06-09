@@ -1,5 +1,9 @@
 <?php
 include '../config/connect.php';
+session_start ();
+if ($_SESSION ["logged"] == null) {
+	Header ( "Location:login.php" );
+}
 
 $player = $_POST ["player"];
 $sql = "SELECT * FROM guess RIGHT JOIN game ON guess.id_game = game.id AND guess.id_player = $player ORDER BY game.date";

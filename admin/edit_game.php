@@ -1,5 +1,9 @@
 <?php
 include '../config/connect.php';
+session_start ();
+if ($_SESSION ["logged"] == null) {
+	Header ( "Location:login.php" );
+}
 
 $game = $_POST ["game"];
 $score_1 = $_POST ["score_1"];

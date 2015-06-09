@@ -1,5 +1,6 @@
 <?php
 include '../config/connect.php';
-$_SESSION ["logged"] = null;
+session_start ();
+session_unset();
 Header ( "Location:index.php" );
 ?>

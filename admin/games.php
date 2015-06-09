@@ -1,5 +1,9 @@
 <?php
 include '../config/connect.php';
+session_start ();
+if ($_SESSION ["logged"] == null) {
+	Header ( "Location:login.php" );
+}
 
 $sql = "SELECT * FROM game ORDER BY date";
 $result = mysql_query ( $sql );
@@ -93,10 +97,10 @@ for($i = 1; $i <= $num_team_results; $i ++) {
               <td><?=$teams[$row["team_2"]]?></td>
               <td><?=$row["date"]?></td>
               <td align="center">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="javascript:showEditGameModal(<?=$row["id"]?>, '<?=$teams[$row["team_1"]]?>', '<?=$teams[$row["team_2"]]?>', <?=$row["score_1"]?>, <?=$row["score_2"]?> );">Editar</span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="javascript:showEditGameModal(<?=$row["id"]?>, '<?=$teams[$row["team_1"]]?>', '<?=$teams[$row["team_2"]]?>', <?=$row["score_1"]?>, <?=$row["score_2"]?> );"></span>
               </td>
               <td align="center">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true">Excluir</span>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
               </td>
             </tr>
             <?php

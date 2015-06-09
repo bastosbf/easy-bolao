@@ -1,5 +1,9 @@
 <?php
 include '../config/connect.php';
+session_start ();
+if ($_SESSION ["logged"] == null) {
+	Header ( "Location:login.php" );
+}
 
 $sql = "SELECT * FROM player";
 $result = mysql_query ( $sql );
