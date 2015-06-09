@@ -11,7 +11,7 @@ for($i = 1; $i <= $num_player_results; $i ++) {
 	$players [$row ["id"]] = $row ["name"];
 }
 
-$sql = "SELECT * FROM player INNER JOIN guess ON player.id = guess.id_player INNER JOIN game ON guess.id_game = game.id WHERE game.score_1 <> -1 AND game.score_2 <> -1 GROUP BY player.name";
+$sql = "SELECT * FROM player INNER JOIN guess ON player.id = guess.id_player INNER JOIN game ON guess.id_game = game.id WHERE game.score_1 <> -1 AND game.score_2 <> -1 ORDER BY player.name";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
 $scores = array ();
@@ -26,13 +26,15 @@ for($i = 1; $i <= $num_results; $i ++) {
 	$score = 0;
 	
 	$guess_draw = $guess_1 == $guess_2;
-	$score_draw = $score_1 == $score_2;
-	
+	$score_draw = $score_1 == $score_2;	
+	if ($hits [$row ["name"]] == null) {
+		$hits [$row ["name"]] = 0;
+	}
+	if ($scores [$row ["name"]] == null) {
+		$scores [$row ["name"]] = 0;
+	}
 	if ($guess_1 == $score_1 && $guess_2 == $score_2) {
-		$score += 4;
-		if ($hits [$row ["name"]] == null) {
-			$hits [$row ["name"]] = 0;
-		}
+		$score += 4;		
 		$hits [$row ["name"]] += 1;
 	} else if ($guess_draw && $score_draw) {
 		$score += 1;
@@ -45,16 +47,17 @@ for($i = 1; $i <= $num_results; $i ++) {
 		if ($guess_win_team_1 == $score_win_team_1) {
 			$score += 1;
 		}
-	}
-	if ($scores [$row ["name"]] == null) {
-		$scores [$row ["name"]] = 0;
-	}
+	}	
 	$scores [$row ["name"]] += $score;
 }
-arsort ( $score );
-arsort ( $hit );
 
-array_multisort ( $score, SORT_DESC, $hit, SORT_DESC );
+$i = 0;
+$data = array();
+foreach($scores as $k => $v) {
+	$data[$i] = array($k, $v, $hits[$k]);
+	$i++;
+}
+array_multisort ( $scores, SORT_DESC, $hits, SORT_DESC, $data);
 
 $sql = "SELECT * FROM team";
 $result = mysql_query ( $sql );
@@ -83,18 +86,18 @@ for($i = 1; $i <= $num_results; $i ++) {
 			$score_1,
 			$score_2 
 	);
+	$guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
 	
 	$sql = "SELECT * FROM guess INNER JOIN player ON guess.id_player = player.id WHERE id_game = " . $row ["id"] . " ORDER BY player.name";
 	$guess_result = mysql_query ( $sql );
 	$guess_num_results = mysql_num_rows ( $guess_result );
 	for($j = 1; $j <= $guess_num_results; $j ++) {
 		$guess_row = mysql_fetch_array ( $guess_result );
+		$guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
+				$guess_row ["guess_1"],
+				$guess_row ["guess_2"] 
+		);
 	}
-	$guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
-	$guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
-			$guess_row ["guess_1"],
-			$guess_row ["guess_2"] 
-	);
 }
 
 ?>
@@ -226,14 +229,15 @@ for($i = 1; $i <= $num_results; $i ++) {
           <tbody>
            <?php
 			$i = 1;
-			foreach ( $guesses [$k] as $guess_k => $guess_v ) {
+			foreach ( $guesses [$k] as $guess_k => $guess_v ) {			
 			?>
-            <tr>
+            <tr <?php if($guess_v[0] == $s1 && $guess_v[1] == $s2) {echo 'class="success"';}?>>
               <td><?=$i?></td>
               <td><?=$guess_k?></td>
               <td><?php echo $guess_v[0] . " x " . $guess_v[1];?></td>
             </tr>
             <?php
+            $i++;
 			}
 			?>
           </tbody>
