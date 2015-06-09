@@ -1,5 +1,6 @@
 <?php
 include 'config/connect.php';
+error_reporting(E_ERROR);
 
 $sql = "SELECT * FROM player";
 $player_result = mysql_query ( $sql );
@@ -242,6 +243,62 @@ for($i = 1; $i <= $num_results; $i ++) {
     <?php
 	}
 	?>
+	<footer>
+      <p class="pull-right">
+        <a href="#">Topo</a>
+      </p>
+      <p>
+        ©
+        <a href="https://github.com/bastosbf/easy-bolao" target="_blank">Easy Bolão</a>
+        . ·
+        <a href="#" onclick="showRulesModal();">Regras</a>
+      </p>
+    </footer>
+  </div>
+  <div id="rules-modal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2>Easy Bolão!</h2>
+          <p class="lead">Easy Bolão foi criado para gerênciar palpites de jogos de futebol entre vários participantes.</p>
+          <h2>Regras</h2>
+          <p class="lead">1) Acerto exato do placar da partida = 4 pontos;</p>
+          <p class="lead">2) Acerto do resultado, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção "A" 2 x 1 Seleção
+            "B"). O mesmo critério vale para uma partida que termine empatada;</p>
+          <p class="lead">3) Acerto do número de gols de uma seleção, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção
+            "A" 1 x 2 Seleção "B"). O mesmo critério vale para uma partida que termine empatada;</p>
+          <p class="lead">4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares.</p>
+          <p align="center">
+            <a class="btn btn-lg btn-success" href="https://github.com/bastosbf/easy-bolao" role="button" target="_blank">Baixe Agora!</a>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
+<script type="text/javascript">
+$("#rules-modal").on("show", function() {
+	$("#name").focus();
+    $("#rules-modal a.btn").on("click", function(e) {
+        $("#rules-modal").modal('hide');
+    });
+});
+
+$("#rules-modal").on("hide", function() { 
+    $("#rules-modal a.btn").off("click");
+});
+
+$("#rules-modal").on("hidden", function() {
+    $("#rules-modal").remove();
+});
+function showRulesModal() {
+   $(document).trigger("clear-alert-id.add");
+   $("#rules-modal").modal({                  
+     "backdrop"  : "static",
+     "keyboard"  : true,
+     "show"      : true                   
+   });
+}
+</script>
 </html>
