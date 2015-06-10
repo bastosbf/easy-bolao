@@ -8,6 +8,10 @@ if ($_SESSION ["logged"] == null) {
 $sql = "SELECT * FROM player";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
+
+$sql = "SELECT * FROM game";
+$game_result = mysql_query ( $sql );
+$game_num_results = mysql_num_rows ( $game_result );
 ?>
 <html lang="en">
 <head>
@@ -61,8 +65,12 @@ $num_results = mysql_num_rows ( $result );
 		    <?php
 			for($i = 1; $i <= $num_results; $i ++) {
 				$row = mysql_fetch_array ( $result );
+				
+				$sql = "SELECT * FROM guess WHERE id_player = " . $row ["id"];
+				$guess_result = mysql_query ( $sql );
+				$guess_num_results = mysql_num_rows ( $guess_result );
 			?>
-			<option value="<?=$row["id"]?>"><?=$row["name"]?></option>
+			<option <?php if($guess_num_results == $game_num_results) { echo 'style="background-color: #D3D3D3;"';} ?> value="<?=$row["id"]?>"><?=$row["name"]?></option>
 		  	<?php
 			}
 			?>
