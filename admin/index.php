@@ -21,18 +21,22 @@ if ($_SESSION ["logged"] == null) {
           <li role="presentation" class="active">
             <a href="#">Início</a>
           </li>
+          <?php if ($_SESSION ["logged"] == 0) {?>
           <li role="presentation">
             <a href="players.php">Jogadores</a>
           </li>
           <li role="presentation">
             <a href="teams.php">Times</a>
           </li>
+          <?php }?>
           <li role="presentation">
             <a href="games.php">Jogos</a>
           </li>
+          <?php if ($_SESSION ["logged"] == 0) {?>
           <li role="presentation">
             <a href="guesses.php">Palpites</a>
           </li>
+          <?php }?>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>
           </li>

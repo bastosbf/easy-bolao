@@ -73,8 +73,8 @@ $current_date = date ( "d/m/Y" );
 $sql = "SELECT * FROM game WHERE date LIKE '%$current_date%' ORDER BY date";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
-$games = array ();
-$guesses = array ();
+$next_games = array ();
+$next_game_guesses = array ();
 for($i = 1; $i <= $num_results; $i ++) {
 	$row = mysql_fetch_array ( $result );
 	$team_1 = $row ["team_1"];
@@ -82,20 +82,51 @@ for($i = 1; $i <= $num_results; $i ++) {
 	$score_1 = $row ["score_1"];
 	$score_2 = $row ["score_2"];
 	
-	$games ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array (
+	$next_games ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array (
 			$score_1,
 			$score_2 
 	);
-	$guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
+	$next_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
 	
 	$sql = "SELECT * FROM guess INNER JOIN player ON guess.id_player = player.id WHERE id_game = " . $row ["id"] . " ORDER BY player.name";
 	$guess_result = mysql_query ( $sql );
 	$guess_num_results = mysql_num_rows ( $guess_result );
 	for($j = 1; $j <= $guess_num_results; $j ++) {
 		$guess_row = mysql_fetch_array ( $guess_result );
-		$guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
+		$next_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
 				$guess_row ["guess_1"],
 				$guess_row ["guess_2"] 
+		);
+	}
+}
+
+$previous_date = date('d/m/Y', strtotime(' -1 day'));
+$sql = "SELECT * FROM game WHERE date LIKE '%$previous_date%' ORDER BY date";
+$result = mysql_query ( $sql );
+$num_results = mysql_num_rows ( $result );
+$previous_games = array ();
+$previous_game_guesses = array ();
+for($i = 1; $i <= $num_results; $i ++) {
+	$row = mysql_fetch_array ( $result );
+	$team_1 = $row ["team_1"];
+	$team_2 = $row ["team_2"];
+	$score_1 = $row ["score_1"];
+	$score_2 = $row ["score_2"];
+
+	$previous_games ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array (
+			$score_1,
+			$score_2
+	);
+	$previous_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
+
+	$sql = "SELECT * FROM guess INNER JOIN player ON guess.id_player = player.id WHERE id_game = " . $row ["id"] . " ORDER BY player.name";
+	$guess_result = mysql_query ( $sql );
+	$guess_num_results = mysql_num_rows ( $guess_result );
+	for($j = 1; $j <= $guess_num_results; $j ++) {
+		$guess_row = mysql_fetch_array ( $guess_result );
+		$previous_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
+				$guess_row ["guess_1"],
+				$guess_row ["guess_2"]
 		);
 	}
 }
@@ -177,7 +208,7 @@ for($i = 1; $i <= $num_results; $i ++) {
             <tr>
               <th>#</th>
               <th>Nome</th>
-              <th>Pontos</th>
+              <th>Palpites</th>
             </tr>
           </thead>
           <tbody>
@@ -202,7 +233,7 @@ for($i = 1; $i <= $num_results; $i ++) {
       <h1>Próximos Jogos</h1>
     </div>
     <?php
-	foreach ( $games as $k => $v ) {
+	foreach ( $next_games as $k => $v ) {
 		$s1 = $v [0];
 		$s2 = $v [1];
 		if ($s1 == - 1) {
@@ -229,7 +260,56 @@ for($i = 1; $i <= $num_results; $i ++) {
           <tbody>
            <?php
 			$i = 1;
-			foreach ( $guesses [$k] as $guess_k => $guess_v ) {			
+			foreach ( $next_game_guesses [$k] as $guess_k => $guess_v ) {			
+			?>
+            <tr <?php if($guess_v[0] == $s1 && $guess_v[1] == $s2) {echo 'class="success"';}?>>
+              <td><?=$i?></td>
+              <td><?=$guess_k?></td>
+              <td><?php echo $guess_v[0] . " x " . $guess_v[1];?></td>
+            </tr>
+            <?php
+            $i++;
+			}
+			?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <?php
+	}
+	?>
+	 <div class="page-header">
+      <h1>Jogos Anteriores</h1>
+    </div>
+    <?php
+	foreach ( $previous_games as $k => $v ) {
+		$s1 = $v [0];
+		$s2 = $v [1];
+		if ($s1 == - 1) {
+			$s1 = "";
+		}
+		if ($s2 == - 1) {
+			$s2 = "";
+		}
+		$game = $k;
+		$game = str_replace ( "s1", $s1, $game );
+		$game = str_replace ( "s2", $s2, $game );
+	?>
+    <h3><?=$game?></h3>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>Placar</th>
+            </tr>
+          </thead>
+          <tbody>
+           <?php
+			$i = 1;
+			foreach ( $previous_game_guesses [$k] as $guess_k => $guess_v ) {			
 			?>
             <tr <?php if($guess_v[0] == $s1 && $guess_v[1] == $s2) {echo 'class="success"';}?>>
               <td><?=$i?></td>

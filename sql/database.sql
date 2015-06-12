@@ -26,13 +26,17 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `admin`
 --
 
-CREATE TABLE IF NOT EXISTS `admin` (
+CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
+
+INSERT INTO `user` (`username`, `password`, `role`) VALUES
+('admin', 'c9f68ce7cb1688a090911d8e16368e92', 0);
 
 --
 -- Estrutura da tabela `game`
