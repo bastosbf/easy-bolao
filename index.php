@@ -81,19 +81,20 @@ for($i = 1; $i <= $num_results; $i ++) {
 	$team_2 = $row ["team_2"];
 	$score_1 = $row ["score_1"];
 	$score_2 = $row ["score_2"];
+	$date = $row["date"];
 	
-	$next_games ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array (
+	$next_games ["$teams[$team_1] s1 x s2 $teams[$team_2] - $date"] = array (
 			$score_1,
 			$score_2 
 	);
-	$next_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
+	$next_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2] - $date"] = array ();
 	
 	$sql = "SELECT * FROM guess INNER JOIN player ON guess.id_player = player.id WHERE id_game = " . $row ["id"] . " ORDER BY player.name";
 	$guess_result = mysql_query ( $sql );
 	$guess_num_results = mysql_num_rows ( $guess_result );
 	for($j = 1; $j <= $guess_num_results; $j ++) {
 		$guess_row = mysql_fetch_array ( $guess_result );
-		$next_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
+		$next_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2] - $date"] [$players [$guess_row ["id_player"]]] = array (
 				$guess_row ["guess_1"],
 				$guess_row ["guess_2"] 
 		);
@@ -112,19 +113,20 @@ for($i = 1; $i <= $num_results; $i ++) {
 	$team_2 = $row ["team_2"];
 	$score_1 = $row ["score_1"];
 	$score_2 = $row ["score_2"];
+	$date = $row["date"];
 
-	$previous_games ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array (
+	$previous_games ["$teams[$team_1] s1 x s2 $teams[$team_2] - $date"] = array (
 			$score_1,
 			$score_2
 	);
-	$previous_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] = array ();
+	$previous_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2] - $date"] = array ();
 
 	$sql = "SELECT * FROM guess INNER JOIN player ON guess.id_player = player.id WHERE id_game = " . $row ["id"] . " ORDER BY player.name";
 	$guess_result = mysql_query ( $sql );
 	$guess_num_results = mysql_num_rows ( $guess_result );
 	for($j = 1; $j <= $guess_num_results; $j ++) {
 		$guess_row = mysql_fetch_array ( $guess_result );
-		$previous_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2]"] [$players [$guess_row ["id_player"]]] = array (
+		$previous_game_guesses ["$teams[$team_1] s1 x s2 $teams[$team_2] - $date"] [$players [$guess_row ["id_player"]]] = array (
 				$guess_row ["guess_1"],
 				$guess_row ["guess_2"]
 		);
