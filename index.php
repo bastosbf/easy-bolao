@@ -399,4 +399,8 @@ function showRulesModal() {
    });
 }
 </script>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> bdb5531745f17a5ed34283023ce9b344c75624d7

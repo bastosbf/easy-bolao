@@ -1,7 +1,7 @@
 <?php
 include '../config/connect.php';
 session_start ();
-if ($_SESSION ["logged"] == null) {
+if ($_SESSION ["logged"] != 0 && $_SESSION ["logged"] != 1) {
 	Header ( "Location:login.php" );
 }
 
@@ -34,18 +34,22 @@ for($i = 1; $i <= $num_team_results; $i ++) {
           <li role="presentation">
             <a href="index.php">Início</a>
           </li>
+          <?php if ($_SESSION ["logged"] == 0) {?>
           <li role="presentation">
             <a href="players.php">Jogadores</a>
           </li>
           <li role="presentation">
             <a href="teams.php">Times</a>
           </li>
+          <?php }?>
           <li role="presentation" class="active">
             <a href="#">Jogos</a>
           </li>
+          <?php if ($_SESSION ["logged"] == 0) {?>
           <li role="presentation">
             <a href="guesses.php">Palpites</a>
           </li>
+          <?php }?>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>
           </li>
@@ -56,9 +60,11 @@ for($i = 1; $i <= $num_team_results; $i ++) {
     <div class="page-header">
       <h1>Jogos</h1>
     </div>
+    <?php if ($_SESSION ["logged"] == 0) {?>
     <p align="right">
       <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddGameModal()">Adicionar Jogo</button>
     </p>
+    <?php }?>
     <?php
 	if ($_GET ["added"] == 1) {
 		echo '<div class="alert alert-success" role="alert">Jogo adicionado com sucesso!</div>';

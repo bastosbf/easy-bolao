@@ -1,7 +1,7 @@
 <?php
 include '../config/connect.php';
 session_start ();
-if ($_SESSION ["logged"] == null) {
+if ($_SESSION ["logged"] != 0) {
 	Header ( "Location:login.php" );
 }
 
@@ -55,7 +55,7 @@ for($i = 1; $i <= $num_player_results; $i ++) {
             <a href="games.php">Jogos</a>
           </li>
           <li role="presentation" class="active">
-            <a href="#">Palpites</a>
+            <a href="guesses.php">Palpites</a>
           </li>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>
