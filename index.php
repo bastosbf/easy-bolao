@@ -1,5 +1,6 @@
 <?php
 include 'config/connect.php';
+session_start ();
 error_reporting(E_ERROR);
 
 $sql = "SELECT * FROM player";
@@ -58,7 +59,7 @@ foreach($scores as $k => $v) {
 	$i++;
 }
 array_multisort($scores, SORT_DESC, $hits, SORT_DESC, $data);
-arsort($hits);
+//arsort($hits);
 //arsort($scores);
 
 $sql = "SELECT * FROM team";
@@ -135,6 +136,15 @@ for($i = 1; $i <= $num_results; $i ++) {
 	}
 }
 
+$sql = "SELECT * FROM game";
+$result = mysql_query ( $sql );
+$total_games = mysql_num_rows ( $result );
+
+$sql = "SELECT * FROM game WHERE score_1 != -1 AND score_2 != -1";
+$result = mysql_query ( $sql );
+$partial_games = mysql_num_rows ( $result );
+
+$_SESSION["last"] = $total_games == $partial_games;
 ?>
 <html lang="en">
 <head>
@@ -146,6 +156,20 @@ for($i = 1; $i <= $num_results; $i ++) {
 </head>
 <body role="document">
   <div class="container theme-showcase" role="main">
+    <?php if($_SESSION["last"]) {?>
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation" class="active">
+            <a href="#">Início</a>
+          </li>
+          <li role="presentation">
+            <a href="guesses.php">Palpites</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <?php }?>
     <div class="page-header">
       <h1>Classificação</h1>
     </div>
@@ -157,6 +181,7 @@ for($i = 1; $i <= $num_results; $i ++) {
               <th>#</th>
               <th>Nome</th>
               <th>Pontos</th>
+              <th>Palpites corretos</th>
             </tr>
           </thead>
           <tbody>
@@ -174,70 +199,7 @@ for($i = 1; $i <= $num_results; $i ++) {
               <td><?if($canwrite){ echo $i; }?></td>
               <td><?=$k?></td>
               <td><?=$v?></td>
-            </tr>
-	        <?php
-				$i ++;
-			}
-			?>          
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Por pontos</h3>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nome</th>
-              <th>Pontos</th>
-            </tr>
-          </thead>
-          <tbody>
-	        <?php
-			$i = 1;
-			$canwrite = true;
-			$old = null;
-			foreach ( $scores as $k => $v ) {
-				$canwrite = $old != $v;
-				$old = $v;
-			?>
-          	<tr>
-              <td><?if($canwrite){ echo $i; }?></td>
-              <td><?=$k?></td>
-              <td><?=$v?></td>
-            </tr>
-	        <?php
-				$i ++;
-			}
-			?>          
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <h3>Por palpites corretos</h3>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nome</th>
-              <th>Palpites</th>
-            </tr>
-          </thead>
-          <tbody>
-	        <?php
-			$i = 1;
-			$canwrite = true;
-			$old = null;
-			foreach ( $hits as $k => $v ) {
-				$canwrite = $old != $v;
-				$old = $v;
-			?>
-          	<tr>
-              <td><?if($canwrite){ echo $i; }?></td>
-              <td><?=$k?></td>
-              <td><?=$v?></td>
+              <td><?=$hits[$k]?></td>
             </tr>
 	        <?php
 				$i ++;
@@ -403,8 +365,4 @@ function showRulesModal() {
    });
 }
 </script>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> bdb5531745f17a5ed34283023ce9b344c75624d7
