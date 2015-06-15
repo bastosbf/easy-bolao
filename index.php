@@ -191,9 +191,12 @@ $_SESSION["last"] = $total_games == $partial_games;
 			$oldScore = null;
 			$oldHit = null;
 			foreach ( $scores as $k => $v ) {
-				$canwrite = $oldScore != $v && $oldHit != $hits[$k];
+				$canwrite = $oldScore != $v;
+				if(!$canwrite) {
+					$canwrite = $oldHit != $hits[$k];
+				}
 				$oldScore = $v;
-				$oldHit = $hits[$v];
+				$oldHit = $hits[$k];
 			?>
           	<tr>
               <td><?if($canwrite){ echo $i; }?></td>
