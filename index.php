@@ -57,7 +57,9 @@ foreach($scores as $k => $v) {
 	$data[$i] = array($k, $v, $hits[$k]);
 	$i++;
 }
-array_multisort ( $scores, SORT_DESC, $hits, SORT_DESC, $data);
+array_multisort($scores, SORT_DESC, $hits, SORT_DESC, $data);
+arsort($hits);
+//arsort($scores);
 
 $sql = "SELECT * FROM team";
 $result = mysql_query ( $sql );
@@ -161,10 +163,12 @@ for($i = 1; $i <= $num_results; $i ++) {
 	        <?php
 			$i = 1;
 			$canwrite = true;
-			$old = null;
+			$oldScore = null;
+			$oldHit = null;
 			foreach ( $scores as $k => $v ) {
-				$canwrite = $old != $v;
-				$old = $v;
+				$canwrite = $oldScore != $v && $oldHit != $hits[$k];
+				$oldScore = $v;
+				$oldHit = $hits[$v];
 			?>
           	<tr>
               <td><?if($canwrite){ echo $i; }?></td>
