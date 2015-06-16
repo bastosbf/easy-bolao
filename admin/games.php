@@ -1,6 +1,6 @@
 <?php
 include '../config/connect.php';
-session_start ();
+include '../config/config.php';
 if ($_SESSION ["logged"] != 0 && $_SESSION ["logged"] != 1) {
 	Header ( "Location:login.php" );
 }
@@ -49,6 +49,9 @@ for($i = 1; $i <= $num_team_results; $i ++) {
           <li role="presentation">
             <a href="guesses.php">Palpites</a>
           </li>
+          <li role="presentation">
+            <a href="finalists.php">Finalistas</a>
+          </li>
           <?php }?>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>
@@ -73,6 +76,11 @@ for($i = 1; $i <= $num_team_results; $i ++) {
 	<?php
 	if ($_GET ["edited"] == 1) {
 		echo '<div class="alert alert-success" role="alert">Placar alterado com sucesso!</div>';
+	}
+	?>
+	<?php
+	if ($_GET ["error"] == 1) {
+		echo '<div class="alert alert-danger" role="alert">Os times devem ser diferentes!</div>';
 	}
 	?>
    <div class="row">

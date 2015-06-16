@@ -1,6 +1,6 @@
 <?php
 include 'config/connect.php';
-session_start ();
+include 'config/config.php';
 if (!$_SESSION ["last"]) {
 	Header ( "Location:index.php" );
 }

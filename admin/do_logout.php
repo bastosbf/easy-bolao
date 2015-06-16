@@ -1,6 +1,6 @@
 <?php
 include '../config/connect.php';
-session_start ();
+include '../config/config.php';
 session_unset();
 Header ( "Location:index.php" );
 ?>

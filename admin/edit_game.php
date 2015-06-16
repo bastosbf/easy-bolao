@@ -1,6 +1,6 @@
 <?php
 include '../config/connect.php';
-session_start ();
+include '../config/config.php';
 if ($_SESSION ["logged"] != 0 && $_SESSION ["logged"] != 1) {
 	Header ( "Location:login.php" );
 }

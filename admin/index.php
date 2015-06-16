@@ -1,6 +1,6 @@
 <?php
 include '../config/connect.php';
-session_start ();
+include '../config/config.php';
 if ($_SESSION ["logged"] == null) {
 	Header ( "Location:login.php" );
 }
@@ -36,6 +36,9 @@ if ($_SESSION ["logged"] == null) {
           <li role="presentation">
             <a href="guesses.php">Palpites</a>
           </li>
+          <li role="presentation">
+            <a href="finalists.php">Finalistas</a>
+          </li>
           <?php }?>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>
@@ -52,7 +55,8 @@ if ($_SESSION ["logged"] == null) {
           "B"). O mesmo critério vale para uma partida que termine empatada;</p>
         <p class="lead">3) Acerto do número de gols de uma seleção, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção
           "A" 1 x 2 Seleção "B"). O mesmo critério vale para uma partida que termine empatada;</p>
-        <p class="lead">4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares.</p>
+        <p class="lead">4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares somados aos acertos das colocações
+          finais. Em caso de novo empate, o desempate se dará pelo maior número de acertos somente dos placares das partidas.</p>
         <p align="center">
           <a class="btn btn-lg btn-success" href="https://github.com/bastosbf/easy-bolao" role="button" target="_blank">Baixe Agora!</a>
         </p>

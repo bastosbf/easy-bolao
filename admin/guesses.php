@@ -1,6 +1,6 @@
 <?php
 include '../config/connect.php';
-session_start ();
+include '../config/config.php';
 if ($_SESSION ["logged"] != 0) {
 	Header ( "Location:login.php" );
 }
@@ -40,6 +40,9 @@ $game_num_results = mysql_num_rows ( $game_result );
           </li>
           <li role="presentation" class="active">
             <a href="#">Palpites</a>
+          </li>
+          <li role="presentation">
+            <a href="finalists.php">Finalistas</a>
           </li>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>

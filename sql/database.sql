@@ -95,6 +95,34 @@ CREATE TABLE IF NOT EXISTS `team` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `finalist`
+--
+
+CREATE TABLE IF NOT EXISTS `finalist` (
+  `position` int(11) NOT NULL,
+  `id_team` int(11) NOT NULL,
+  UNIQUE KEY `id_team` (`id_team`),
+  UNIQUE KEY `position` (`position`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `finalist_guess`
+--
+
+CREATE TABLE IF NOT EXISTS `finalist_guess` (
+  `id_player` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `id_team` int(11) NOT NULL,
+  UNIQUE KEY `id_player` (`id_player`,`position`),
+  UNIQUE KEY `id_player_2` (`id_player`,`id_team`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -5,7 +5,15 @@ if ($_SESSION ["logged"] != 0) {
 	Header ( "Location:login.php" );
 }
 
-$sql = "SELECT * FROM player ORDER BY name";
+$sql = "SELECT * FROM team ORDER BY name";
+$result = mysql_query ( $sql );
+$num_results = mysql_num_rows ( $result );
+$options = "";
+for($i = 1; $i <= $num_results; $i ++) {
+	$row = mysql_fetch_array ( $result );
+	$options .= '<option value="' . $row ["id"] . '">' . $row ["name"] . '</option>';
+}
+$sql = "SELECT * FROM finalist INNER JOIN team ON finalist.id_team = team.id ORDER BY position";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
 ?>
@@ -25,7 +33,7 @@ $num_results = mysql_num_rows ( $result );
           <li role="presentation">
             <a href="index.php">Início</a>
           </li>
-          <li role="presentation" class="active">
+          <li role="presentation">
             <a href="#">Jogadores</a>
           </li>
           <li role="presentation">
@@ -37,8 +45,8 @@ $num_results = mysql_num_rows ( $result );
           <li role="presentation">
             <a href="guesses.php">Palpites</a>
           </li>
-          <li role="presentation">
-            <a href="finalists.php">Finalistas</a>
+          <li role="presentation" class="active">
+            <a href="#">Finalistas</a>
           </li>
           <li role="presentation">
             <a href="do_logout.php">Sair</a>
@@ -48,14 +56,19 @@ $num_results = mysql_num_rows ( $result );
       <h3 class="text-muted">Administração</h3>
     </div>
     <div class="page-header">
-      <h1>Jogadores</h1>
+      <h1>Finalistas</h1>
     </div>
     <p align="right">
-      <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddPlayerModal()">Adicionar Jogador</button>
+      <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddFinalistModal()">Adicionar Finalista</button>
     </p>
     <?php
 	if ($_GET ["added"] == 1) {
-		echo '<div class="alert alert-success" role="alert">Jogador adicionado com sucesso!</div>';
+		echo '<div class="alert alert-success" role="alert">Finalista adicionado com sucesso!</div>';
+	}
+	?>
+	<?php
+	if ($_GET ["error"] == 1) {
+		echo '<div class="alert alert-danger" role="alert">Posição ou finalista já cadastrado!</div>';
 	}
 	?>
     <div class="row">
@@ -64,7 +77,7 @@ $num_results = mysql_num_rows ( $result );
           <thead>
             <tr>
               <th>#</th>
-              <th>Nome</th>
+              <th>Finalista</th>
               <th></th>
               <th></th>
             </tr>
@@ -75,7 +88,7 @@ $num_results = mysql_num_rows ( $result );
 				$row = mysql_fetch_array ( $result );
 			?>			
             <tr>
-              <td><?=$i?></td>
+              <td><?=$row["position"]?>º</td>
               <td><?=$row["name"]?></td>
               <td align="center">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -92,18 +105,22 @@ $num_results = mysql_num_rows ( $result );
       </div>
     </div>
   </div>
-  <div id="add-player-modal" class="modal fade">
+  <div id="add-finalist-modal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form id="add-player-form" action="add_player.php" method="POST">
+        <form id="add-finalist-form" action="add_finalist.php" method="POST">
           <div class="modal-body">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <label for="name"> Nome </label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Nome" autofocus>
+            <label for="position"> Posição </label>
+            <input type="text" class="form-control" name="position" id="position" placeholder="Posição" autofocus>
+            <label for="team"> Time </label>
+            <select class="form-control" id="team" name="team">
+             <?=$options?>	
+            </select>
             <span data-alertid="create"></span>
           </div>
           <div class="modal-footer">
-            <button id="add-player-button" type="button" class="btn btn-primary">Adicionar</button>
+            <button id="add-finalist-button" type="button" class="btn btn-primary">Adicionar</button>
           </div>
         </form>
       </div>
@@ -111,34 +128,34 @@ $num_results = mysql_num_rows ( $result );
   </div>
 </body>
 <script type="text/javascript">
-$("#add-player-modal").on("show", function() {
+$("#add-finalist-modal").on("show", function() {
 	$("#name").focus();
-    $("#add-player-modal a.btn").on("click", function(e) {
-        $("#add-player-modal").modal('hide');
+    $("#add-finalist-modal a.btn").on("click", function(e) {
+        $("#add-finalist-modal").modal('hide');
     });
 });
 
-$("#add-player-modal").on("hide", function() { 
-    $("#add-player-modal a.btn").off("click");
+$("#add-finalist-modal").on("hide", function() { 
+    $("#add-finalist-modal a.btn").off("click");
 });
 
-$("#add-player-modal").on("hidden", function() {
-    $("#add-player-modal").remove();
+$("#add-finalist-modal").on("hidden", function() {
+    $("#add-finalist-modal").remove();
 });
 
-$("#add-player-button").on("click", function() {
+$("#add-finalist-button").on("click", function() {
     var name = $("#name").val();
     if (name == "") {
          $(document).trigger("set-alert-id-add", [{
-                message: 'Digite o nome do jogador!',
+                message: 'Digite a posição do time!',
          }]);
     } else {
-        $("#add-player-form").submit();
+        $("#add-finalist-form").submit();
     }
 });
-function showAddPlayerModal() {
+function showAddFinalistModal() {
    $(document).trigger("clear-alert-id.add");
-   $("#add-player-modal").modal({                  
+   $("#add-finalist-modal").modal({                  
      "backdrop"  : "static",
      "keyboard"  : true,
      "show"      : true                   
