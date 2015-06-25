@@ -28,6 +28,10 @@ for($i = 1; $i <= $num_player_results; $i ++) {
 	$players [$row ["id"]] = $row ["name"];
 }
 
+$sql = "SELECT * FROM finalist_guess WHERE id_player = $player";
+$finalist_result = mysql_query ( $sql );
+$num_finalist_results = mysql_num_rows ( $finalist_result );
+
 ?>
 <html lang="en">
 <head>
@@ -54,22 +58,46 @@ for($i = 1; $i <= $num_player_results; $i ++) {
     <div class="page-header">
       <h1>Palpites de <?=$players[$player]?></h1>
     </div>
-    <form action="add_guesses.php" method="post">
-      <input type="hidden" name="player" id="player" value="<?=$player?>" />
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Time 1</th>
-                <th>Placar 1</th>
-                <th>Placar 2</th>
-                <th>Time 2</th>
-                <th>Data</th>
-              </tr>
-            </thead>
-            <tbody>
+    <input type="hidden" name="player" id="player" value="<?=$player?>" />
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Finalista</th>
+            </tr>
+          </thead>
+          <tbody>
+           <?php
+			for($i = 1; $i <= $num_finalist_results; $i ++) {
+				$row = mysql_fetch_array ( $finalist_result );
+			?>			
+            <tr>
+              <td><?=$row["position"]?>º</td>
+              <td><?=$teams[$row["id_team"]]?></td>              
+            </tr>
+            <?php
+			}
+			?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Time 1</th>
+              <th>Placar 1</th>
+              <th>Placar 2</th>
+              <th>Time 2</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
             <?php
 			for($i = 1; $i <= $num_results; $i ++) {
 				$row = mysql_fetch_array ( $result );
@@ -86,10 +114,9 @@ for($i = 1; $i <= $num_player_results; $i ++) {
 			}
 			?>
           </tbody>
-          </table>
-        </div>
+        </table>
       </div>
-    </form>
+    </div>
   </div>
 </body>
 </html>

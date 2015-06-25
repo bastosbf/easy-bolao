@@ -77,6 +77,14 @@ $num_results = mysql_num_rows ( $result );
     <div class="page-header">
       <h1>Palpites de <?=$players[$player]?></h1>
     </div>
+    <?php
+	if ($_GET ["added"] == 1) {
+		echo '<div class="alert alert-success" role="alert">Finalista adicionado com sucesso!</div>';
+	}
+	if ($_GET ["error"] == 1) {
+		echo '<div class="alert alert-danger" role="alert">Finalista ou posição já cadastrada!</div>';
+	}
+	?>
     <div class="row">
       <div class="col-md-12">
         <table class="table table-striped">
@@ -110,15 +118,7 @@ $num_results = mysql_num_rows ( $result );
     </div>
     <p align="right">
       <button type="button" class="btn btn-lg btn-primary" onclick="javascript:showAddFinalistModal()">Adicionar Finalista</button>
-    </p>
-    <?php
-	if ($_GET ["added"] == 1) {
-		echo '<div class="alert alert-success" role="alert">Finalista adicionado com sucesso!</div>';
-	}
-	if ($_GET ["error"] == 1) {
-		echo '<div class="alert alert-danger" role="alert">Finalista ou posição já cadastrada!</div>';
-	}
-	?>
+    </p>   
     <form action="add_guesses.php" method="post">
       <input type="hidden" name="player" id="player" value="<?=$player?>" />
       <div class="row">
