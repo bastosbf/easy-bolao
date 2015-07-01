@@ -95,17 +95,11 @@ for($i = 1; $i <= $total_finalist_guess_result; $i ++) {
 		if($position == $row["position"]) {
 			$hits[$name] += 1;
 			$scores[$name] += 4;
-		} else {
-			$revert_down = ($position + ($total_finalist_result / 2));
-			$revert_up = ($position - ($total_finalist_result / 2));		
-			if($row["position"] == $revert_down || $row["position"] == $revert_up) {
-				$scores[$name] += 2;
-			}
+		} else {	
+			$scores[$name] += 2;
 		}
 	}
 }
-
-
 
 $i = 0;
 $data = array();
