@@ -33,6 +33,29 @@ for($i = 1; $i <= $num_results; $i ++) {
 	if ($scores [$row ["name"]] == null) {
 		$scores [$row ["name"]] = 0;
 	}
+	
+	/*if($guess_1 == $score_1) {
+		$score += 1;
+	}
+	if($guess_2 == $score_2) {
+		$score += 1;
+	}
+	if ($guess_draw && $score_draw) {
+		$score += 2;
+	} else {		
+		if(!$score_draw && !$guess_draw) {
+			$guess_win_team_1 = $guess_1 > $guess_2;
+			$score_win_team_1 = $score_1 > $score_2;
+			if ($guess_win_team_1 == $score_win_team_1) {
+				$score += 2;
+			}
+		}		
+	}
+	if ($guess_1 == $score_1 && $guess_2 == $score_2) {
+		$score += 1;
+		$hits [$row ["name"]] += 1;
+	}*/
+	
 	if ($guess_1 == $score_1 && $guess_2 == $score_2) {
 		$score += 4;		
 		$hits [$row ["name"]] += 1;
