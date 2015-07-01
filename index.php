@@ -84,9 +84,10 @@ for($i = 1; $i <= $total_finalist_result; $i ++) {
 	$row = mysql_fetch_array ( $finalist_result );
 	$finalists[$row["id_team"]] = $row["position"];	
 }
-$sql = "SELECT * FROM finalist_guess";
+$sql = "SELECT * FROM finalist_guess ORDER BY id_player, position";
 $finalist_guess_result = mysql_query ( $sql );
 $total_finalist_guess_result = mysql_num_rows ( $finalist_guess_result );
+$finalists_guess = array();
 for($i = 1; $i <= $total_finalist_guess_result; $i ++) {
 	$row = mysql_fetch_array ( $finalist_guess_result );
 	$name = $players[$row["id_player"]];		
@@ -99,6 +100,7 @@ for($i = 1; $i <= $total_finalist_guess_result; $i ++) {
 			$scores[$name] += 2;
 		}
 	}
+	$finalists_guess[$name][$row["position"]] = $row["id_team"];
 }
 
 $i = 0;
@@ -261,9 +263,11 @@ $_SESSION["last"] = $total_games == $partial_games;
         </table>
       </div>
     </div>
+	<?php if(sizeof($next_games) > 0) {?>
     <div class="page-header">
       <h1>Próximos Jogos</h1>
     </div>
+    <?php }?>
     <?php
 	foreach ( $next_games as $k => $v ) {
 		$s1 = $v [0];
@@ -310,6 +314,7 @@ $_SESSION["last"] = $total_games == $partial_games;
     <?php
 	}
 	?>
+	<?php if(sizeof($previous_games) > 0 && !$_SESSION["last"]) {?>
 	 <div class="page-header">
       <h1>Jogos Anteriores</h1>
     </div>
@@ -355,8 +360,29 @@ $_SESSION["last"] = $total_games == $partial_games;
           </tbody>
         </table>
       </div>
-    </div>
+    </div>    
     <?php
+	}
+	?>
+	<?php }?>
+	<?php
+    if($_SESSION["last"]) {
+	    echo '<div class="page-header"><h1>Finalistas</h1></div>';
+	    echo '<div class="row">';    
+		foreach ($finalists_guess as $k => $v) {
+			echo '<div class="col-md-3">';
+			echo '<table class="table table-striped">';
+			echo "<thead><tr><th>$k</th><th></th><th></th></tr></thead>";
+			foreach ($v as $p => $t) {
+				if($p == $finalists[$t]) {
+					echo '<tr class="success"><td></td><td>'.$p.'º</td><td>'.$teams[$t].'</td>';
+				} else {
+					echo '<tr><td></td><td>'.$p.'º</td><td>'.$teams[$t].'</td>';
+				}
+			}
+			echo '</table></div>';
+		}
+		echo '</div>';	
 	}
 	?>
 	<footer>
