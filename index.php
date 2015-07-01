@@ -53,6 +53,37 @@ for($i = 1; $i <= $num_results; $i ++) {
 	$scores [$row ["name"]] += $score;
 }
 
+$sql = "SELECT * FROM finalist";
+$finalist_result = mysql_query ( $sql );
+$total_finalist_result = mysql_num_rows ( $finalist_result );
+$finalists = array();
+for($i = 1; $i <= $total_finalist_result; $i ++) {
+	$row = mysql_fetch_array ( $finalist_result );
+	$finalists[$row["id_team"]] = $row["position"];	
+}
+$sql = "SELECT * FROM finalist_guess";
+$finalist_guess_result = mysql_query ( $sql );
+$total_finalist_guess_result = mysql_num_rows ( $finalist_guess_result );
+for($i = 1; $i <= $total_finalist_guess_result; $i ++) {
+	$row = mysql_fetch_array ( $finalist_guess_result );
+	$name = $players[$row["id_player"]];		
+	$position = $finalists[$row["id_team"]];		
+	if($position != null) {
+		if($position == $row["position"]) {
+			$hits[$name] += 1;
+			$scores[$name] += 4;
+		} else {
+			$revert_down = ($position + ($total_finalist_result / 2));
+			$revert_up = ($position - ($total_finalist_result / 2));		
+			if($row["position"] == $revert_down || $row["position"] == $revert_up) {
+				$scores[$name] += 2;
+			}
+		}
+	}
+}
+
+
+
 $i = 0;
 $data = array();
 foreach($scores as $k => $v) {
