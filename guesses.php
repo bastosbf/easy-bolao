@@ -9,7 +9,16 @@ $sql = "SELECT * FROM player";
 $result = mysql_query ( $sql );
 $num_results = mysql_num_rows ( $result );
 
-$sql = "SELECT * FROM game";
+$sql = "SELECT * FROM team";
+$team_result = mysql_query ( $sql );
+$num_team_results = mysql_num_rows ( $team_result );
+$teams = array ();
+for($i = 1; $i <= $num_team_results; $i ++) {
+	$row = mysql_fetch_array ( $team_result );
+	$teams [$row ["id"]] = $row ["name"];
+}
+
+$sql = "SELECT * FROM game ORDER BY date";
 $game_result = mysql_query ( $sql );
 $game_num_results = mysql_num_rows ( $game_result );
 ?>
@@ -59,6 +68,42 @@ $game_num_results = mysql_num_rows ( $game_result );
         </span>
       </div>
     </form>
+    <div class="page-header">
+      <h1>Jogos</h1>
+    </div>
+   <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Time 1</th>
+              <th>Placar 1</th>
+              <th>Placar 2</th>
+              <th>Time 2</th>
+              <th>Data</th>              
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+			for($i = 1; $i <= $game_num_results; $i ++) {
+				$row = mysql_fetch_array ( $game_result );
+			?>			
+            <tr>
+              <td><?=$i?></td>
+              <td><?=$teams[$row["team_1"]]?></td>
+              <td><?php if($row["score_1"] != -1) echo $row["score_1"]; else { echo "-"; }?></td>
+              <td><?php if($row["score_2"] != -1) echo $row["score_2"]; else { echo "-"; }?></td>
+              <td><?=$teams[$row["team_2"]]?></td>
+              <td><?=$row["date"]?></td>              
+            </tr>
+            <?php
+												}
+												?>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </body>
 </html>
