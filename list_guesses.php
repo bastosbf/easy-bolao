@@ -102,7 +102,7 @@ $num_finalist_results = mysql_num_rows ( $finalist_result );
 			for($i = 1; $i <= $num_results; $i ++) {
 				$row = mysql_fetch_array ( $result );
 			?>		
-            <tr>
+            <tr <?php if($row["guess_1"] == $row["score_1"] && $row["guess_2"] == $row["score_2"]) {echo 'class="success"';}?>>
                 <td><?=$i?></td>
                 <td><?=$teams[$row["team_1"]]?></td>
                 <td><?=$row["guess_1"]?></td>
