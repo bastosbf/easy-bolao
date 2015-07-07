@@ -34,7 +34,7 @@ for($i = 1; $i <= $num_results; $i ++) {
 		$scores [$row ["name"]] = 0;
 	}
 	
-	/*if($guess_1 == $score_1) {
+	if($guess_1 == $score_1) {
 		$score += 1;
 	}
 	if($guess_2 == $score_2) {
@@ -54,9 +54,9 @@ for($i = 1; $i <= $num_results; $i ++) {
 	if ($guess_1 == $score_1 && $guess_2 == $score_2) {
 		$score += 1;
 		$hits [$row ["name"]] += 1;
-	}*/
+	}
 	
-	if ($guess_1 == $score_1 && $guess_2 == $score_2) {
+	/*if ($guess_1 == $score_1 && $guess_2 == $score_2) {
 		$score += 4;		
 		$hits [$row ["name"]] += 1;
 	} else if ($guess_draw && $score_draw) {
@@ -72,7 +72,7 @@ for($i = 1; $i <= $num_results; $i ++) {
 				$score += 1;
 			}
 		}
-	}	
+	}*/	
 	$scores [$row ["name"]] += $score;
 }
 
@@ -94,7 +94,7 @@ for($i = 1; $i <= $total_finalist_guess_result; $i ++) {
 	$position = $finalists[$row["id_team"]];		
 	if($position != null) {
 		if($position == $row["position"]) {
-			$hits[$name] += 1;
+			//$hits[$name] += 1;
 			$scores[$name] += 4;
 		} else {	
 			$scores[$name] += 2;
