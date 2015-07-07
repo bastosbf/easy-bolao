@@ -55,24 +55,6 @@ for($i = 1; $i <= $num_results; $i ++) {
 		$score += 1;
 		$hits [$row ["name"]] += 1;
 	}
-	
-	/*if ($guess_1 == $score_1 && $guess_2 == $score_2) {
-		$score += 4;		
-		$hits [$row ["name"]] += 1;
-	} else if ($guess_draw && $score_draw) {
-		$score += 1;
-	} else {
-		if ($guess_1 == $score_1 || $guess_2 == $score_2) {
-			$score += 1;
-		}
-		if(!$score_draw && !$guess_draw) {
-			$guess_win_team_1 = $guess_1 > $guess_2;
-			$score_win_team_1 = $score_1 > $score_2;
-			if ($guess_win_team_1 == $score_win_team_1) {
-				$score += 1;
-			}
-		}
-	}*/	
 	$scores [$row ["name"]] += $score;
 }
 
@@ -110,8 +92,6 @@ foreach($scores as $k => $v) {
 	$i++;
 }
 array_multisort($scores, SORT_DESC, $hits, SORT_DESC, $data);
-//arsort($hits);
-//arsort($scores);
 
 $sql = "SELECT * FROM team";
 $result = mysql_query ( $sql );
@@ -250,7 +230,7 @@ $_SESSION["last"] = $total_games == $partial_games;
 				$oldHit = $hits[$k];
 			?>
           	<tr>
-              <td><?if($canwrite){ echo $i; }?></td>
+              <td><?if($canwrite){ echo $i."º"; }?></td>
               <td><?=$k?></td>
               <td><?=$v?></td>
               <td><?=$hits[$k]?></td>
