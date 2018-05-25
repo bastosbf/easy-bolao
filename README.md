@@ -2,10 +2,11 @@
 Easy Bolão foi criado para gerênciar palpites de jogos de futebol entre vários participantes.
 
 #Regras
-1) Acerto exato do placar da partida = 4 pontos;
+1) Acerto exato do placar da partida = 3 pontos;
 
-2) Acerto do resultado, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção "A" 2 x 1 Seleção "B"). O mesmo critério vale para uma partida que termine empatada;
+2) Acerto do time vencedor = 1 ponto. O mesmo critério vale para uma partida que termine empatada;
 
-3) Acerto do número de gols de uma seleção, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção "A" 1 x 2 Seleção "B"). O mesmo critério vale para uma partida que termine empatada;
-
-4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares.
+3) Critérios de desempate:
+		  3.1 - Maior número de acertos de placares exatos
+		  3.2 - Maior número de acertos das 4 colocações finais
+		  3.3 - Maior número de acertos de time vencedores.
