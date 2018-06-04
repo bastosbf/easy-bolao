@@ -385,13 +385,13 @@ $_SESSION["last"] = $total_games == $partial_games;
           <h2>Easy Bolão!</h2>
           <p class="lead">Easy Bolão foi criado para gerênciar palpites de jogos de futebol entre vários participantes.</p>
           <h2>Regras</h2>
-          <p class="lead">1) Acerto exato do placar da partida = 4 pontos;</p>
-          <p class="lead">2) Acerto do resultado, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção "A" 2 x 1 Seleção
-            "B"). O mesmo critério vale para uma partida que termine empatada;</p>
-          <p class="lead">3) Acerto do número de gols de uma seleção, com placar diferente = 1 ponto (Ex. O placar da partida foi Seleção "A" 1 x 0 Seleção "B". O apostador arriscou que seria Seleção
-            "A" 1 x 2 Seleção "B"). O mesmo critério vale para uma partida que termine empatada;</p>
-          <p class="lead">4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares somados aos acertos das colocações
-            finais. Em caso de novo empate, o desempate se dará pelo maior número de acertos somente dos placares das partidas.</p>
+          <p class="lead">1) Acerto do placar de um dos time = +1 ponto;</p>
+          <p class="lead">2) Acerto do time vencedor ou empate = +2 pontos;</p>
+          <p class="lead">3) Acerto exato = +1 ponto;</p>
+          <p class="lead">4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares.</p>
+	  <p align="center">
+		  <b>Pontos são acumulativos no total de 5 pontos por partida.</b>
+	  </p>
           <p align="center">
             <a class="btn btn-lg btn-success" href="https://github.com/bastosbf/easy-bolao" role="button" target="_blank">Baixe Agora!</a>
           </p>
