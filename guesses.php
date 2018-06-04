@@ -36,16 +36,16 @@ $game_num_results = mysql_num_rows ( $game_result );
       <nav>
         <ul class="nav nav-pills pull-right">
           <li role="presentation">
-            <a href="index.php">Início</a>
+            <a href="index.php">Home</a>
           </li>
           <li role="presentation" class="active">
-            <a href="#">Palpites</a>
+            <a href="#">Guesses</a>
           </li>
         </ul>
       </nav>
     </div>
     <div class="page-header">
-      <h1>Palpites</h1>
+      <h1>Guesses</h1>
     </div>
     <form action="list_guesses.php" method="post">
       <div class="input-group">
@@ -69,7 +69,7 @@ $game_num_results = mysql_num_rows ( $game_result );
       </div>
     </form>
     <div class="page-header">
-      <h1>Jogos</h1>
+      <h1>Games</h1>
     </div>
    <div class="row">
       <div class="col-md-12">
@@ -77,11 +77,11 @@ $game_num_results = mysql_num_rows ( $game_result );
           <thead>
             <tr>
               <th>#</th>
-              <th>Time 1</th>
-              <th>Placar 1</th>
-              <th>Placar 2</th>
-              <th>Time 2</th>
-              <th>Data</th>              
+              <th>Team 1</th>
+              <th>Score 1</th>
+              <th>Score 2</th>
+              <th>Team 2</th>
+              <th>Date</th>              
             </tr>
           </thead>
           <tbody>

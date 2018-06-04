@@ -192,17 +192,17 @@ $_SESSION["last"] = $total_games == $partial_games;
       <nav>
         <ul class="nav nav-pills pull-right">
           <li role="presentation" class="active">
-            <a href="#">Início</a>
+            <a href="#">Home</a>
           </li>
           <li role="presentation">
-            <a href="guesses.php">Palpites</a>
+            <a href="guesses.php">Guesses</a>
           </li>
         </ul>
       </nav>
     </div>
     <?php }?>
     <div class="page-header">
-      <h1>Classificação</h1>
+      <h1>Ranking</h1>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -210,9 +210,9 @@ $_SESSION["last"] = $total_games == $partial_games;
           <thead>
             <tr>
               <th>#</th>
-              <th>Nome</th>
-              <th>Pontos</th>
-              <th>Palpites corretos</th>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Right guesses</th>
             </tr>
           </thead>
           <tbody>
@@ -245,7 +245,7 @@ $_SESSION["last"] = $total_games == $partial_games;
     </div>
 	<?php if(sizeof($next_games) > 0) {?>
     <div class="page-header">
-      <h1>Próximos Jogos</h1>
+      <h1>Next games</h1>
     </div>
     <?php }?>
     <?php
@@ -269,8 +269,8 @@ $_SESSION["last"] = $total_games == $partial_games;
           <thead>
             <tr>
               <th>#</th>
-              <th>Nome</th>
-              <th>Placar</th>
+              <th>Name</th>
+              <th>Guess</th>
             </tr>
           </thead>
           <tbody>
@@ -296,7 +296,7 @@ $_SESSION["last"] = $total_games == $partial_games;
 	?>
 	<?php if(sizeof($previous_games) > 0 && !$_SESSION["last"]) {?>
 	 <div class="page-header">
-      <h1>Jogos Anteriores</h1>
+      <h1>Previous games</h1>
     </div>
     <?php
 	foreach ( $previous_games as $k => $v ) {
@@ -319,8 +319,8 @@ $_SESSION["last"] = $total_games == $partial_games;
           <thead>
             <tr>
               <th>#</th>
-              <th>Nome</th>
-              <th>Placar</th>
+              <th>Name</th>
+              <th>Guess</th>
             </tr>
           </thead>
           <tbody>
@@ -373,7 +373,7 @@ $_SESSION["last"] = $total_games == $partial_games;
         ©
         <a href="https://github.com/bastosbf/easy-bolao" target="_blank">Easy Bolão</a>
         . ·
-        <a href="#" onclick="showRulesModal();">Regras</a>
+        <a href="#" onclick="showRulesModal();">Rules</a>
       </p>
     </footer>
   </div>
@@ -383,17 +383,17 @@ $_SESSION["last"] = $total_games == $partial_games;
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h2>Easy Bolão!</h2>
-          <p class="lead">Easy Bolão foi criado para gerênciar palpites de jogos de futebol entre vários participantes.</p>
-          <h2>Regras</h2>
-          <p class="lead">1) Acerto do placar de um dos time = +1 ponto;</p>
-          <p class="lead">2) Acerto do time vencedor ou empate = +2 pontos;</p>
-          <p class="lead">3) Acerto exato = +1 ponto;</p>
-          <p class="lead">4) Em caso de empate na pontuação entre um ou mais participantes, o desempate se dará pelo maior número de acertos exatos dos placares.</p>
+          <p class="lead">Easy Bolão was created to manage football match guesses between multiple players.</p>
+          <h2>Rules</h2>
+          <p class="lead">1) Right guess of one of the teams score = +1 point;</p>
+          <p class="lead">2) Right guess of the winner or dawn = +2 points;</p>
+          <p class="lead">3) Exact guess = +1 point;</p>
+          <p class="lead">4) In case of dawn in the scoreboard between 2 or more players the tie breaker will be the number of exact guesses.</p>
 	  <p align="center">
-		  <b>Pontos são acumulativos no total de 5 pontos por partida.</b>
+		  <b>Points are cumulative. Max of 5 points per game.</b>
 	  </p>
           <p align="center">
-            <a class="btn btn-lg btn-success" href="https://github.com/bastosbf/easy-bolao" role="button" target="_blank">Baixe Agora!</a>
+            <a class="btn btn-lg btn-success" href="https://github.com/bastosbf/easy-bolao" role="button" target="_blank">Download now!</a>
           </p>
         </div>
       </div>

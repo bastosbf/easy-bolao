@@ -47,16 +47,16 @@ $num_finalist_results = mysql_num_rows ( $finalist_result );
       <nav>
         <ul class="nav nav-pills pull-right">
           <li role="presentation">
-            <a href="index.php">Início</a>
+            <a href="index.php">Home</a>
           </li>
           <li role="presentation" class="active">
-            <a href="guesses.php">Palpites</a>
+            <a href="guesses.php">Guesses</a>
           </li>
         </ul>
       </nav>
     </div>
     <div class="page-header">
-      <h1>Palpites de <?=$players[$player]?></h1>
+      <h1>Guesses of <?=$players[$player]?></h1>
     </div>
     <input type="hidden" name="player" id="player" value="<?=$player?>" />
     <div class="row">
@@ -65,7 +65,7 @@ $num_finalist_results = mysql_num_rows ( $finalist_result );
           <thead>
             <tr>
               <th>#</th>
-              <th>Finalista</th>
+              <th>Finalist</th>
             </tr>
           </thead>
           <tbody>
@@ -90,11 +90,11 @@ $num_finalist_results = mysql_num_rows ( $finalist_result );
           <thead>
             <tr>
               <th>#</th>
-              <th>Time 1</th>
-              <th>Placar 1</th>
-              <th>Placar 2</th>
-              <th>Time 2</th>
-              <th>Data</th>
+              <th>Team 1</th>
+              <th>Score 1</th>
+              <th>Score 2</th>
+              <th>Team 2</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
